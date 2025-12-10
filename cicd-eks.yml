@@ -8,7 +8,7 @@ kind: Deployment
 metadata:
   name: deployment-2048
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: app-2048
