@@ -2,7 +2,7 @@
 data "aws_ami" "amazon_linux" {
   most_recent = true
   owners      = ["amazon"]
-  
+
   filter {
     name   = "name"
     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
@@ -41,7 +41,7 @@ resource "aws_instance" "cicd-ec2" {
   ami                    = data.aws_ami.amazon_linux.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.cicd_sg.id]
-  
+
   tags = {
     Name        = "CICD-ec2-Instance-${var.environment}"
     Environment = var.environment
