@@ -13,7 +13,6 @@ phases:
   pre_build:
     commands:
       - echo "Pre-build: init & validate"
-      - cd terraform-codepipeline
       - terraform init -input=false
       - terraform fmt -check
       - terraform validate
