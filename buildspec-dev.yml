@@ -13,18 +13,19 @@ phases:
   pre_build:
     commands:
       - echo "Pre-build: init & validate"
-      - cd codepipelinne-ec2-tf-eks
+      - cd codepipeline-ec2-tf-eks
       - terraform init -input=false
       - terraform fmt -check
       - terraform validate
   build:
     commands:
       - echo "Terraform plan for DEV"
-      - terraform plan -input=false -var-file=../envs/dev/terraform.tfvars -out=tfplan-dev
+      - terraform plan -input=false -var="environment=dev"
+      #- terraform plan -input=false -var-file=../envs/dev/terraform.tfvars -out=tfplan-dev
   post_build:
     commands:
       - echo "Applying DEV plan..."
-      - terraform apply -input=false -auto-approve tfplan-dev
+      - terraform apply -input=false -auto-approve -var="environment=dev"
 artifacts:
   files:
     - '**/*'
