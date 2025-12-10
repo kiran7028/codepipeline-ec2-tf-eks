@@ -20,7 +20,7 @@ phases:
   build:
     commands:
       - echo "Terraform plan for DEV"
-      - terraform plan -input=false -var-file=/.envs/dev/terraform.tfvars -out=tfplan-dev
+      - terraform plan -input=false -var-file=../envs/dev/terraform.tfvars -out=tfplan-dev
   post_build:
     commands:
       - echo "Applying DEV plan..."

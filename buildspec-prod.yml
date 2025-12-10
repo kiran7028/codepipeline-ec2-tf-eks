@@ -20,7 +20,7 @@ phases:
   build:
     commands:
       - echo "Terraform PLAN for PROD only"
-      - terraform plan -input=false -var-file=/.envs/prod/terraform.tfvars -out=tfplan-prod
+      - terraform plan -input=false -var-file=../envs/prod/terraform.tfvars -out=tfplan-prod
   post_build:
     commands:
       - echo "You may choose NOT to auto-apply in prod from CodeBuild."
