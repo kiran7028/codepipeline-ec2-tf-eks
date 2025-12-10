@@ -13,6 +13,7 @@ phases:
   pre_build:
     commands:
       - echo "Pre-build: init & validate"
+      - cd codepipelinne-ec2-tf-eks
       - terraform init -input=false
       - terraform fmt -check
       - terraform validate
