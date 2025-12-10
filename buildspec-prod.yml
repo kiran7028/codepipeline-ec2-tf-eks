@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - echo "Installing Terraform"
+      - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip
+      - unzip terraform.zip
+      - mv terraform /usr/local/bin/
+      - terraform -version
+  pre_build:
+    commands:
+      - echo "Pre-build: init & validate"
+      - cd terraform-codepipeline
+      - terraform init -input=false
+      - terraform fmt -check
+      - terraform validate
+  build:
+    commands:
+      - echo "Terraform PLAN for PROD only"
+      - terraform plan -input=false -var-file=envs/prod/terraform.tfvars -out=tfplan-prod
+  post_build:
+    commands:
+      - echo "You may choose NOT to auto-apply in prod from CodeBuild."
+      # If you *do* want auto apply, uncomment:
+      # - terraform apply -input=false -auto-approve tfplan-prod
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
